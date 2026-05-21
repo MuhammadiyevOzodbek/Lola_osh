@@ -372,23 +372,30 @@ const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
 let cx = -100, cy = -100, rx = -100, ry = -100;
 
+const CURSOR_HOVER_SELECTOR = 'a, button, .menu-card, .social-link, input, textarea, select, label';
+
+function updateCursorHover() {
+  const hit = document.elementFromPoint(cx, cy);
+  const interactive = hit?.closest(CURSOR_HOVER_SELECTOR);
+  document.body.classList.toggle('hover-active', Boolean(interactive));
+}
+
 document.addEventListener('mousemove', e => {
-  cx = e.clientX; cy = e.clientY;
-  cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
+  cx = e.clientX;
+  cy = e.clientY;
+  cursor.style.left = cx + 'px';
+  cursor.style.top = cy + 'px';
+  updateCursorHover();
 });
 
 function animateRing() {
   rx += (cx - rx) * 0.12;
   ry += (cy - ry) * 0.12;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
   requestAnimationFrame(animateRing);
 }
 animateRing();
-
-document.querySelectorAll('a,button,.menu-card,.social-link').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
-});
 
 // ===== NAV HOVER INDICATOR =====
 function initNavHover() {

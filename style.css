@@ -734,7 +734,10 @@ h2.section-title em { font-style: italic; color: var(--gold); }
 .contact-phone {
   font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 400; color: var(--text); letter-spacing: -0.01em; margin: 32px 0;
-  text-decoration: none; display: block;
+  text-decoration: none;
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
   transition: color 0.3s ease !important;
 }
 .contact-phone:hover { color: var(--gold); }
